@@ -28,6 +28,7 @@ services:
     image: redis:latest
     volumes:
       - redis-data:/data
+    command: redis-server --appendonly yes
 
 volumes:
   postgres-data:
