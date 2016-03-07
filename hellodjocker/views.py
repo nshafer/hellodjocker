@@ -17,7 +17,8 @@ class HomeView(CreateView):
         try:
             visits = cache.incr('visits')
         except ValueError:
-            visits = cache.set('visits', 1)
+            cache.set('visits', 1)
+            visits = 1
 
         context = {
             'name': os.getenv("NAME", "World"),
