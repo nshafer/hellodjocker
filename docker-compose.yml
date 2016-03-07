@@ -1,0 +1,36 @@
+# Development environment
+version: '2'
+
+services:
+  web:
+    restart: unless-stopped
+    build: .
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+      - redis
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    command: python manage.py runserver 0.0.0.0:8000
+
+  postgres:
+    restart: unless-stopped
+    image: postgres:latest
+    volumes:
+      - postgres-data:/var/lib/postgresql
+
+  redis:
+    restart: unless-stopped
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
