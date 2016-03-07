@@ -15,6 +15,8 @@ services:
     depends_on:
       - postgres
       - redis
+    environment:
+      NAME: "Django in Docker!"
     command: python manage.py runserver 0.0.0.0:8000
 
   postgres:

@@ -19,6 +19,8 @@
     <ul>
         {% for signature in signatures %}
             <li>{{ signature }}</li>
+        {% empty %}
+            <b>Nobody! Be the first.</b>
         {% endfor %}
     </ul>
 
