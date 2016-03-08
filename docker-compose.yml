@@ -16,7 +16,7 @@ services:
       - postgres
       - redis
     environment:
-      NAME: "Django in Docker!"
+      NAME: "Django running under docker-compose!"
     command: python manage.py runserver 0.0.0.0:8000
 
   postgres:
