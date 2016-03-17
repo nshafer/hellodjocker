@@ -12,9 +12,6 @@ services:
       - redis
     volumes:
       - .:/app
-    depends_on:
-      - postgres
-      - redis
     environment:
       NAME: "Django running under docker-compose!"
     command: python manage.py runserver 0.0.0.0:8000
@@ -23,7 +20,7 @@ services:
     restart: unless-stopped
     image: postgres:latest
     volumes:
-      - postgres-data:/var/lib/postgresql
+      - postgres-data:/var/lib/postgresql/data
 
   redis:
     restart: unless-stopped
