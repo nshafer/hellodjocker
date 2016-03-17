@@ -1,10 +1,10 @@
-# Development environment
+# Production environment
 version: '2'
 
 services:
   proxy:
     restart: always
-    image: nginx
+    image: nginx:stable
     links:
       - web
     volumes:
