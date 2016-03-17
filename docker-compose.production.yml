@@ -1,0 +1,48 @@
+# Development environment
+version: '2'
+
+services:
+  proxy:
+    restart: always
+    image: nginx
+    links:
+      - web
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    volumes_from:
+      - web:ro
+    ports:
+      - "9005:80"
+
+  web:
+    restart: always
+    build: .
+    links:
+      - postgres
+      - redis
+    volumes:
+      - /app
+    expose:
+      - "9001"
+    environment:
+      NAME: "Django in PRODUCTION"
+    command: gunicorn hellodjocker.wsgi --bind 0.0.0.0:9001 --workers 2
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    restart: always
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
