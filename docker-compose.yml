@@ -4,14 +4,14 @@ version: '2'
 services:
   web:
     restart: unless-stopped
-    build: .
+    build: ./web
     ports:
       - "8000:8000"
     links:
       - postgres
       - redis
     volumes:
-      - .:/app
+      - ./web:/app
     environment:
       NAME: "Django running under docker-compose!"
     command: python manage.py runserver 0.0.0.0:8000

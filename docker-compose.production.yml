@@ -16,7 +16,7 @@ services:
 
   web:
     restart: always
-    build: .
+    build: ./web
     links:
       - postgres
       - redis
