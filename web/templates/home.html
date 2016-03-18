@@ -1,35 +1,85 @@
+{% load static from staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Djocker!</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "style.css" %}">
 </head>
 <body>
-    <h1>Hello, {{ name }}</h1>
+    <header class="jumbotron">
+        <div class="container">
+            <div class="col-sm-8">
+                <h1>Hello, {{ name }}</h1>
+                <p>Total visits: <b>{{ visits }}</b></p>
+            </div>
+            <div class="col-sm-4">
+                <img src="{% static "django.svg" %}"/>
+            </div>
+        </div>
 
-    <p>Total visits: <b>{{ visits }}</b></p>
+    </header>
 
-    <h2>Sign your name</h2>
-    <form action="" method="post">{% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Sign"/>
-    </form>
-
-    <h2>Past Visitors</h2>
-    <ul>
-        {% for signature in signatures %}
-            <li>{{ signature }}</li>
-        {% empty %}
-            <b>Nobody! Be the first.</b>
-        {% endfor %}
-    </ul>
-
-    <h2>Environment variables</h2>
-    <dl>
-        {% for key, value in environment.items %}
-            <dt>{{ key }}</dt>
-            <dd>{{ value }}</dd>
-        {% endfor %}
-    </dl>
+    <main class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-push-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Sign your name</div>
+                    <div class="panel-body">
+                        {{ form.non_field_errors }}
+                        <form class="" action="" method="post">{% csrf_token %}
+                            {% if form.name.errors %}
+                                {% for error in form.name.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="input-group">
+                                <input id="{{ form.name.id }}" class="form-control" type="text"
+                                       name="{{ form.name.html_name }}"
+                                       value="{{ form.name.value|default_if_none:"" }}"
+                                       placeholder="Enter name"
+                                />
+                                <span class="input-group-btn">
+                                    <input class="btn btn-primary" type="submit" value="Sign"/>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-sm-pull-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Past Visitors</div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {% for signature in signatures %}
+                                <li class="list-group-item">{{ signature }}</li>
+                            {% empty %}
+                                <b>Nobody! Be the first.</b>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Environment variables</div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal">
+                            {% for key, value in environment.items %}
+                                <dt>{{ key }}</dt>
+                                <dd>{{ value }}</dd>
+                            {% endfor %}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
