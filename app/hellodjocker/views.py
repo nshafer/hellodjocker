@@ -21,7 +21,7 @@ class HomeView(CreateView):
             visits = 1
 
         context = {
-            'name': os.getenv("NAME", "World"),
+            'runenv': os.getenv("RUNENV", "Unknown"),
             'environment': os.environ,
             'signatures': Signature.objects.all().order_by("-added"),
             'visits': visits,

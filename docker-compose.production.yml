@@ -23,7 +23,7 @@ services:
     expose:
       - "9001"
     environment:
-      NAME: "Django in PRODUCTION"
+      RUNENV: "PRODUCTION"
     command: bash cmd.production.sh
 
   postgres:

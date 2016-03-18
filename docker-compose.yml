@@ -12,7 +12,7 @@ services:
     volumes:
       - ./app:/app
     environment:
-      NAME: "Django running under docker-compose!"
+      RUNENV: "DEV via docker-compose"
     command: python manage.py runserver 0.0.0.0:8000
 
   postgres:
