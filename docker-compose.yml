@@ -3,7 +3,6 @@ version: '2'
 
 services:
   web:
-    restart: unless-stopped
     build: ./web
     ports:
       - "8000:8000"
@@ -17,13 +16,11 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
 
   postgres:
-    restart: unless-stopped
     image: postgres:latest
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
   redis:
-    restart: unless-stopped
     image: redis:latest
     volumes:
       - redis-data:/data
