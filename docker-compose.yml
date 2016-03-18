@@ -2,15 +2,15 @@
 version: '2'
 
 services:
-  web:
-    build: ./web
+  app:
+    build: ./app
     ports:
       - "8000:8000"
     links:
       - postgres
       - redis
     volumes:
-      - ./web:/app
+      - ./app:/app
     environment:
       NAME: "Django running under docker-compose!"
     command: python manage.py runserver 0.0.0.0:8000
