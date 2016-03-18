@@ -9,8 +9,7 @@ services:
       - web
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-    volumes_from:
-      - web:ro
+      - static-data:/app/staticfiles
     ports:
       - "9005:80"
 
@@ -21,12 +20,12 @@ services:
       - postgres
       - redis
     volumes:
-      - /app
+      - static-data:/app/staticfiles
     expose:
       - "9001"
     environment:
       NAME: "Django in PRODUCTION"
-    command: gunicorn hellodjocker.wsgi --bind 0.0.0.0:9001 --workers 2
+    command: bash cmd.production.sh
 
   postgres:
     restart: always
@@ -45,4 +44,6 @@ volumes:
   postgres-data:
     driver: local
   redis-data:
+    driver: local
+  static-data:
     driver: local
