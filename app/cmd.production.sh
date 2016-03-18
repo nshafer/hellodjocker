@@ -10,4 +10,4 @@ python manage.py collectstatic --noinput
 python manage.py migrate
 
 # Exec so that gunicorn replaces this process and gets all of the signals from Docker
-exec gunicorn hellodjocker.wsgi --bind 0.0.0.0:9001 --workers 2
+exec gunicorn hellodjocker.wsgi --bind 0.0.0.0:9000 --workers 2

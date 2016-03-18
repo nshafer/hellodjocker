@@ -10,7 +10,7 @@ services:
     volumes:
       - static-data:/app/staticfiles
     ports:
-      - "9005:80"
+      - "80:80"
 
   app:
     restart: always
@@ -21,7 +21,7 @@ services:
     volumes:
       - static-data:/app/staticfiles
     expose:
-      - "9001"
+      - "9000"
     environment:
       RUNENV: "PRODUCTION"
     command: bash cmd.production.sh
