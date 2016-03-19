@@ -12,13 +12,15 @@
 <body>
     <header class="jumbotron">
         <div class="container">
-            <div class="col-sm-4 col-sm-push-8">
-                <img id="django-logo" class="img img-responsive" src="{% static "django.svg" %}"/>
-            </div>
-            <div class="col-sm-8 col-sm-pull-4">
-                <h1>Hello, Djocker!</h1>
-                <p>Environment: {{ runenv }}</p>
-                <p>Total visits: <b>{{ visits }}</b></p>
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8">
+                    <img id="django-logo" class="img img-responsive" src="{% static "django.svg" %}"/>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <h1>Hello, Djocker!</h1>
+                    <p>Environment: {{ runenv }}</p>
+                    <p>Total visits: <b>{{ visits }}</b></p>
+                </div>
             </div>
         </div>
 
