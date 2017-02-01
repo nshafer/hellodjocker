@@ -1,12 +1,10 @@
 # Production environment
-version: '2'
+version: "3"
 
 services:
   proxy:
     restart: always
     build: ./proxy
-    links:
-      - app
     volumes:
       - static-data:/app/staticfiles
     ports:
@@ -15,26 +13,21 @@ services:
   app:
     restart: always
     build: ./app
-    links:
-      - postgres
-      - redis
     volumes:
       - static-data:/app/staticfiles
-    expose:
-      - "9000"
     environment:
       RUNENV: "PRODUCTION"
     command: bash cmd.production.sh
 
   postgres:
     restart: always
-    image: postgres:latest
+    image: postgres:9.6
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
   redis:
     restart: always
-    image: redis:latest
+    image: redis:3.2
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes
